@@ -4,5 +4,3 @@ __pycache__/
 chat_history.json
 memory.json
 knowledge.json
-chatbot.db
-test_gemini.py
