@@ -69,7 +69,7 @@ def calculateExpression(expression):
     try:
         return str(eval(expression))
 
-    except:
+    except Exception:
         return "Invalid calculation"
 
 
@@ -132,7 +132,6 @@ def loadChatHistoryFromDB():
     return history
 
 chat_history = loadChatHistoryFromDB() 
-print("CHAT HISTORY LOADED =", chat_history)
 
 
 def getMemoryFromDB(key):
@@ -158,6 +157,7 @@ def getMemoryFromDB(key):
         return result[0] #if no result is found then it will return None, if a result is found then it will return the answer which is stored in the first column of the result. since we are only selecting the answer column, it will be at index 0 of the result tuple.
     return None '''
 
+print("NEW CODE RUNNING")
 def getKnowledgeFromDB(user_input):
     user_input = normalizeQuestion(user_input)
     cursor.execute(
@@ -166,20 +166,60 @@ def getKnowledgeFromDB(user_input):
 
     rows = cursor.fetchall()
 
+    STOP_WORDS = {
+    "in",
+    "of",
+    "the",
+    "a",
+    "an",
+    "is",
+    "are",
+    "what",
+    "who"
+}
+
     #first check exacgt match. 
     for question, answer in rows:
         if normalizeQuestion(question) == user_input:
             return answer
         
     #if no exact match is found then check partial matches.
-    for question, answer in rows:
-        if question in user_input:
-            return answer
-        
-        if user_input in question:
-            return answer
+    
+    best_answer = None
+    best_score = 0
+    best_length = 999999
+    user_words = {
+        word
+        for word in user_input.split()
+        if word not in STOP_WORDS
+    }
 
+    for question, answer in rows:
+        question_words = {
+            word
+            for word in question.split()
+            if word not in STOP_WORDS
+        }
+        score = len(user_words.intersection(question_words))
+
+        if score > best_score:
+            best_score = score
+            best_answer = answer
+            best_length = len(question)
+
+        elif score == best_score and score > 0:
+            if len(question) < best_length:
+                best_answer = answer
+                best_length = len(question)
+
+    print("USER =", user_input)
+    print("BEST SCORE =", best_score)
+    print("BEST ANSWER =", best_answer)
+    if best_score >= len(user_words):
+        return best_answer
     return None
+        
+
 
 def askGemini(question,history,retries=3):
     for attempt in range(retries):
@@ -197,7 +237,8 @@ def askGemini(question,history,retries=3):
                 - Keep answers under 100 words unless asked otherwise.
                 - Do not use markdown.
                 - Be conversational.
-
+                - If the current question is related to previous conversation, use the conversation context.
+                - If the current question is not related to previous conversation, answer normally without forcing context.
                 Current User Question:
                 {question}
 
@@ -209,7 +250,6 @@ def askGemini(question,history,retries=3):
             for chunk in response:
                 text = getattr(chunk, "text", "")
                 if text:
-                    print(text,end="",flush=True)
                     full_response += text
             print()
             return full_response
@@ -255,11 +295,12 @@ def getResponseOfBot(user_input):
 
 
     if db_answer: # if answer found for the matching questionm, then it will return the answer from the db. if no answer is found then it will return None and it will continue to the next part of the code which is asking Gemini for the answer.
+        print("ANSWER FROM DATABASE")
         return db_answer
     
     if "my name is" in user_input:
-        name = user_input.replace("my name is", "").strip() #my name is will be replaced by nothing only the name will be stored in the name variable
-        saveMemoryToDB("name", name)
+        name = user_input.replace("my name is", "").strip(" .!?") #my name is will be replaced by "" and the name will be stored in the name variable
+        saveMemoryToDB("name", name.title()) # .title() capitalizes the first letter of each word
         
         return f"Nice to meet you {name}"
 
@@ -287,13 +328,20 @@ def getBotReply(user_input):
     if reply != "UNKNOWN":
         return reply
     
+    print("ANSWER FROM GEMINI")
     ai_answer = askGemini(user_input,chat_history)
     chat_history.append({
         "role": "assistant",
         "text": ai_answer
     })
     saveChatToDB("assistant", ai_answer)
-    saveKnowledgeToDB(user_input, ai_answer)
+    if("what is" in user_input.lower() # only "what is, who is, explain" type of questions and ans will be saved in the knowledge db. 
+       or "what are" in user_input.lower()
+       or "who is" in user_input.lower()
+       or "explain" in user_input.lower()
+       or "tell me about" in user_input.lower()
+    ):
+       saveKnowledgeToDB(user_input, ai_answer)
 
     return ai_answer
 
