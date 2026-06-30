@@ -1,0 +1,252 @@
+/* App background */
+
+.stApp{
+    background: #0D081A;
+    color: white;
+}
+
+.block-container{
+    max-width:1200px;
+    padding-top:30px;
+}
+
+
+
+
+
+/* User msg */
+
+
+.user-msg{
+    font-size:14px;
+    width:fit-content;
+    max-width:75%;
+
+    margin-left:auto;
+    margin-bottom:20px;
+
+    padding:14px 18px;
+
+    color:white;
+
+    border-radius:18px;
+
+    background:linear-gradient(
+        135deg,
+        #8B5CF6,
+        #EC4899
+    );
+
+    box-shadow:0 0 18px rgba(236,72,153,.25);
+
+}
+
+
+
+
+   /* BOT msg */
+
+.bot-msg{
+    font-size:14px;
+    width:fit-content;
+    max-width:75%;
+
+    margin-right:auto;
+    margin-bottom:20px;
+
+    padding:14px 18px;
+
+    color:white;
+
+    border-radius:18px;
+
+    background:#1A1630;
+
+    border:1px solid #30264E;
+
+    box-shadow:0 0 10px rgba(139,92,246,.15);
+
+}
+
+
+
+/* Clear chat button */
+
+.stButton button{
+
+    background:#171326;
+
+    color:white;
+
+    border:1px solid #8B5CF6;
+
+    border-radius:12px;
+
+    transition:.3s;
+
+     /* Make the button smaller */
+    width: 100px;       
+    height: 35px;        
+    padding: 4px 10px;   /* Less padding = smaller button */
+    margin-top: 20px;
+    font-size: 14px;
+
+}
+
+.stButton button:hover{
+
+    background:#8B5CF6;
+
+    color:white;
+
+}
+
+
+
+
+/* Send button */
+
+.stChatInput button{
+
+    background:linear-gradient(
+        135deg,
+        #8B5CF6,
+        #EC4899
+    ) !important;
+
+    color:white !important;
+
+    border:none !important;
+
+    border-radius:50% !important;
+
+}
+
+
+.stChatInput button:hover{
+
+    background:linear-gradient(
+        135deg,
+        #A855F7,
+        #F472B6
+    ) !important;
+
+}
+
+/* Chat input */
+
+/* Outer container */
+
+div[data-testid="stChatInput"]{
+
+    background: transparent !important;
+
+    border: none !important;
+
+    box-shadow: none !important;
+
+    width:80% !important;
+    margin:0 auto !important;
+}
+
+
+/* Inner BaseWeb container */
+
+div[data-testid="stChatInput"] > div{
+
+    background:#1A1630 !important;
+
+    border:2px solid #e762a5 !important;
+    box-shadow:0 0 12px rgba(206, 67, 241, 0.35) !important;
+    border-radius:20px !important;
+    
+    transition:.25s;
+
+}
+
+
+/* Focus */
+
+div[data-testid="stChatInput"] > div:focus-within{
+
+    border:2px solid #815ed2 !important;
+    box-shadow:0 0 12px rgba(59,130,246,.35) !important;
+    /* box-shadow:0 0 12px rgba(236,72,153,.35) !important; */
+
+}
+
+
+/* Remove textarea border */
+
+textarea[data-testid="stChatInputTextArea"]{
+
+    border:none !important;
+
+    outline:none !important;
+
+    box-shadow:none !important;
+
+    background:transparent !important;
+
+    color:white !important;
+
+}
+
+
+textarea[data-testid="stChatInputTextArea"]::placeholder{
+
+    color:#B7A6D9;
+
+}
+
+/* Remove border from BaseWeb input */
+
+div[data-baseweb="base-input"]{
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+div[data-baseweb="base-input"]:focus-within{
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+
+
+
+h1{
+
+    font-size:25px !important;
+
+    font-weight:500 !important;
+
+    background:linear-gradient(
+        90deg,
+        #9B5CFF,
+        #FF4FBF
+    );
+
+    background-clip:text;
+    -webkit-background-clip:text;
+
+    color:transparent;
+    -webkit-text-fill-color:transparent;
+
+    margin-bottom:0px !important;
+
+}
+
+
+header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:999;
+
+}
+
