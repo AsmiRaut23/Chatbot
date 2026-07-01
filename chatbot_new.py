@@ -157,7 +157,6 @@ def getMemoryFromDB(key):
         return result[0] #if no result is found then it will return None, if a result is found then it will return the answer which is stored in the first column of the result. since we are only selecting the answer column, it will be at index 0 of the result tuple.
     return None '''
 
-print("NEW CODE RUNNING")
 def getKnowledgeFromDB(user_input):
     user_input = normalizeQuestion(user_input)
     cursor.execute(
@@ -167,15 +166,7 @@ def getKnowledgeFromDB(user_input):
     rows = cursor.fetchall()
 
     STOP_WORDS = {
-    "in",
-    "of",
-    "the",
-    "a",
-    "an",
-    "is",
-    "are",
-    "what",
-    "who"
+    "in", "of", "the", "a", "an", "is", "are", "what", "who"
 }
 
     #first check exacgt match. 
@@ -202,20 +193,21 @@ def getKnowledgeFromDB(user_input):
         }
         score = len(user_words.intersection(question_words))
 
-        if score > best_score:
+        extra_words = len(question_words - user_words)
+
+        if score > best_score or (
+            score == best_score and extra_words < best_length
+        ):
             best_score = score
             best_answer = answer
-            best_length = len(question)
+            best_length = len(question) 
 
         elif score == best_score and score > 0:
             if len(question) < best_length:
                 best_answer = answer
                 best_length = len(question)
 
-    print("USER =", user_input)
-    print("BEST SCORE =", best_score)
-    print("BEST ANSWER =", best_answer)
-    if best_score >= len(user_words):
+    if best_score >= 2: 
         return best_answer
     return None
         
@@ -295,7 +287,6 @@ def getResponseOfBot(user_input):
 
 
     if db_answer: # if answer found for the matching questionm, then it will return the answer from the db. if no answer is found then it will return None and it will continue to the next part of the code which is asking Gemini for the answer.
-        print("ANSWER FROM DATABASE")
         return db_answer
     
     if "my name is" in user_input:
@@ -328,7 +319,6 @@ def getBotReply(user_input):
     if reply != "UNKNOWN":
         return reply
     
-    print("ANSWER FROM GEMINI")
     ai_answer = askGemini(user_input,chat_history)
     chat_history.append({
         "role": "assistant",

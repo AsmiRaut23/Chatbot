@@ -20,7 +20,7 @@ client = genai.Client(
 )
 
 st.set_page_config(
-    page_title="AI Chatbot",
+    page_title="Lumina",
     page_icon="🤖",
     layout="wide"
 )
@@ -36,7 +36,7 @@ header_col1, header_col2 = st.columns([8,2])
 
 with header_col1:
 
-    st.markdown("<h1>Chatbot</h1>", unsafe_allow_html=True)
+    st.markdown("<h1>Lumina</h1>", unsafe_allow_html=True)
 
 with header_col2:
 
