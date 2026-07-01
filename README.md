@@ -2,7 +2,7 @@
 
 ## Overview
 
-Smart AI Chatbot is an AI-powered conversational assistant developed using Python, Streamlit, SQLite, and Google's Gemini API. The chatbot can answer user queries, remember information, store knowledge in a database, and provide an interactive chat interface through a web application.
+Lumina is an AI-powered conversational assistant developed using Python, Streamlit, SQLite, and Google's Gemini API. Lumina can answer user queries, remember information, store knowledge in a database, and provide an interactive chat interface through a web application.
 
 
 ## Architecture
@@ -63,11 +63,12 @@ Gemini API
 ## Project Structure
 
 ```
-Smart-AI-Chatbot/
+Lumina/
 │
 ├── app.py
 ├── chatbot_new.py
 ├── chatbot.db
+├── style.css
 ├── requirements.txt
 ├── README.md
 ├── .gitignore
