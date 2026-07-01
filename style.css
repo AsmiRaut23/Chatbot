@@ -95,7 +95,11 @@
 
 .stButton button:hover{
 
-    background:#8B5CF6;
+    background:linear-gradient(
+        135deg,
+        #8B5CF6,
+        #EC4899
+    ) !important;
 
     color:white;
 
@@ -156,8 +160,8 @@ div[data-testid="stChatInput"] > div{
 
     background:#1A1630 !important;
 
-    border:2px solid #e762a5 !important;
-    box-shadow:0 0 12px rgba(206, 67, 241, 0.35) !important;
+    border:2px solid #b399ec !important;
+    box-shadow:0 0 12px rgba(195, 47, 232, 0.35) !important;
     border-radius:20px !important;
     
     transition:.25s;
@@ -170,7 +174,7 @@ div[data-testid="stChatInput"] > div{
 div[data-testid="stChatInput"] > div:focus-within{
 
     border:2px solid #815ed2 !important;
-    box-shadow:0 0 12px rgba(59,130,246,.35) !important;
+    box-shadow:0 0 12px rgba(31, 108, 231, 0.35) !important;
     /* box-shadow:0 0 12px rgba(236,72,153,.35) !important; */
 
 }
@@ -219,13 +223,13 @@ div[data-baseweb="base-input"]:focus-within{
 
 h1{
 
-    font-size:25px !important;
+    font-size:29px !important;
 
     font-weight:500 !important;
 
     background:linear-gradient(
         90deg,
-        #9B5CFF,
+        #9c67f0,
         #FF4FBF
     );
 
