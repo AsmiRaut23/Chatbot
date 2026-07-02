@@ -1,32 +1,54 @@
-# Smart AI Chatbot
+# Lumina – AI Chatbot
 
 ## Overview
 
 Lumina is an AI-powered conversational assistant developed using Python, Streamlit, SQLite, and Google's Gemini API. Lumina can answer user queries, remember information, store knowledge in a database, and provide an interactive chat interface through a web application.
+Lumina is deployed on Streamlit Community Cloud and can be accessed through the live demo below.
 
+**Live Demo:** 
+🌐 https://lumina-aichatbot.streamlit.app/
 
-## Architecture
-
-User
-↓
-Streamlit UI
-↓
-Chatbot Logic (Python)
-↓
-SQLite Database
-↓
-Gemini API
+## Screeshot
 
 
 ## Key Features
 
-- AI-powered responses using Gemini API
-- Interactive Streamlit web interface
-- Persistent SQLite database storage
+- AI-powered responses using Google Gemini
+- Responsive Streamlit web interface
+- SQLite-based persistent knowledge storage
 - User memory management
-- Knowledge retrieval system
-- Conversation history support
+- Knowledge retrieval from local database
+- Conversation history persistence
+- Mathematical expression evaluation
+- Automatic fallback to Gemini for unknown questions
 - Secure API key management using .env
+
+
+## How Lumina Works
+
+- Accepts user queries through a Streamlit-based interface.
+- Searches predefined responses and the SQLite knowledge base.
+- Falls back to the Gemini API when no suitable local answer is available.
+- Stores relevant AI-generated responses to expand its knowledge base.
+- Maintains conversation history using SQLite for a continuous chat experience.
+
+
+## Architecture
+
+```text
+User
+   │
+   ▼
+Streamlit UI
+   │
+   ▼
+Chatbot Logic
+   │
+   ├────────► SQLite Database
+   │
+   └────────► Gemini API
+```
+
 
 ## Tech Stack
 
@@ -35,6 +57,8 @@ Gemini API
 - SQLite
 - Google Gemini API
 - python-dotenv
+
+
 
 ## Database Design
 
@@ -72,7 +96,7 @@ Lumina/
 ├── requirements.txt
 ├── README.md
 ├── .gitignore
-└── .env
+└── .env (create locally)
 ```
 
 ## Installation
@@ -101,15 +125,39 @@ GEMINI_API_KEY=YOUR_API_KEY
 python -m streamlit run app.py
 ```
 
+
+## Usage
+
+The chatbot can:
+
+- Answer general questions using Gemini AI
+- Retrieve previously learned knowledge from SQLite
+- Remember user information
+- Store conversation history
+- Perform basic mathematical calculations
+
+
+
 ## Future Scope
 
-- ChatGPT-style conversation sidebar
 - Multi-session chat support
-- User authentication system
-- Cloud deployment
-- Semantic search for knowledge retrieval
-- Voice-enabled chatbot interaction
+- Chat history sidebar
+- Voice interaction
+- Semantic search using embeddings
+- File upload support
+- User authentication
+- RAG-based document question answering
+
+
+## License
+
+This project is licensed under the MIT License.
+
 
 ## Author
 
-Asmi Raut
+**Asmi Raut**
+
+MCA Student
+
+GitHub: https://github.com/AsmiRaut23
