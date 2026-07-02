@@ -9,7 +9,7 @@ Lumina is deployed on Streamlit Community Cloud and can be accessed through the 
 🌐 https://lumina-aichatbot.streamlit.app/
 
 ## Screeshot
-
+![Lumina Chatbot Interface](lumina-home.png)
 
 ## Key Features
 
@@ -147,11 +147,6 @@ The chatbot can:
 - File upload support
 - User authentication
 - RAG-based document question answering
-
-
-## License
-
-This project is licensed under the MIT License.
 
 
 ## Author
