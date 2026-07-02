@@ -95,6 +95,7 @@ Lumina/
 ├── style.css
 ├── requirements.txt
 ├── README.md
+├── lumina-home.png
 ├── .gitignore
 └── .env (create locally)
 ```
