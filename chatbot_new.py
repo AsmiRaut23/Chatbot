@@ -44,12 +44,12 @@ cursor.execute("""
 
 conn.commit() #it will save the changes made to the database. it is used to commit the current transaction to the database, ensuring that all changes are saved and made permanent. without calling commit(), any changes made to the database will not be saved and will be lost when the connection is closed.
 
-
+BOT_NAME = "Lumina"
 
 #chatbot memory creation
 responses = {
     ("hello","hi","hey") : "Hi,How can I help you?",
-    ("what is your name",): "My name is smart chatbot",
+    ("what is your name",): f"My name is {BOT_NAME}. I'm your AI assistant.",
     ("what can you do?",): "I can answer simple questions of yours",
     ("great to talk to you",): "Thank you! I'm glad you're enjoying the conversation.",
     ("bye","goodbye") :" Have a nice day"
@@ -63,15 +63,6 @@ def getCurrentDate():
 
 def getCurrentDay():
     return datetime.datetime.now().strftime("%A")  # %A is used to get the full name of the day like Monday, Tuesday etc. if we use %a then it will give us the short name of the day like Mon, Tue etc.
-
-def calculateExpression(expression):
-
-    try:
-        return str(eval(expression))
-
-    except Exception:
-        return "Invalid calculation"
-
 
 
 def normalizeQuestion(question):
@@ -222,7 +213,12 @@ def askGemini(question,history,retries=3):
                 model="gemini-flash-lite-latest",
                 
                 contents=f"""
-                You are a helpful chatbot.
+                You are Lumina, a friendly and intelligent AI chatbot.
+
+                If the user asks your name, always answer:
+                "My name is Lumina."
+
+                Never say you don't have a name.
 
                 Rules:
                 - Answer in plain text.
@@ -274,12 +270,6 @@ def getResponseOfBot(user_input):
 
     if "day" in user_input:
         return getCurrentDay()
-    
-    #if user_input.startswith("calculate"):
-    if "calculate" in user_input:
-        expression = user_input.replace("calculate", "").strip()
-        return calculateExpression(expression)
-
 
     db_answer = getKnowledgeFromDB( # in database it searches for a matching question.
         user_input.lower().strip()
